@@ -1,50 +1,101 @@
 
-# 🚀 Windows Unattended Setup Configuration
+# Windows Unattended Installation Script 🚀
 
-This project contains an unattended XML file for automating Windows installations. The file has been optimized to include customization of settings, bypassing certain system checks, removing bloatware, and setting up default user accounts.
+This project provides an unattended installation configuration for Windows. It includes scripts that automate setup, bypass hardware checks, remove unwanted bloatware, and configure the system according to your needs.
 
-## ✨ Features
+## Key Features
 
-- **Bypass Hardware Checks:** Automatically bypass TPM, Secure Boot, and RAM checks during installation.
-- **Disable Windows Defender:** Runs a custom script to disable Windows Defender during installation.
-- **Remove Bloatware:** Removes several built-in apps like Xbox, Skype, and others via PowerShell scripts.
-- **Custom User Accounts:** Automatically creates specified local user accounts with administrative and standard privileges.
-- **Custom First Logon Commands:** Runs scripts for additional configurations like disabling services, managing search indexing, and setting the power plan.
+- **🚫 Bypass Hardware Checks**: Automatically bypass TPM, Secure Boot, and RAM checks during installation, allowing installation on older or unsupported systems.
+  
+- **🛡️ Disable Windows Defender**: Runs a custom script that disables Windows Defender, freeing up system resources and improving performance for certain tasks.
 
-## 📝 How to Use
+- **🧹 Remove Bloatware**: Automatically uninstalls a variety of pre-installed Microsoft apps and services that are often considered bloatware.
 
-### 1. **Clone the Repository**
-```bash
-git clone <repository_url>
-```
+- **👥 Custom User Accounts**: Automatically creates local user accounts with specified administrative and standard privileges.
 
-### 2. **Customize the Unattend File**
+- **🛠️ Custom First Logon Commands**: Runs scripts during the first logon to further configure the system, such as disabling unnecessary services, managing search indexing, and configuring power settings.
 
-The `unattend.xml` file is pre-configured for automation, but certain sensitive details like usernames, passwords, and computer names need to be customized for your environment.
+## Bloatware Removed 🧽
 
-#### 🚨 Important: Change These Values Before Use!
+The following applications and capabilities are automatically removed during installation:
 
-1. **Computer Name** (Line 522)
-   - Replace:
-     ```xml
-     <ComputerName>REPLACE_ME</ComputerName>
-     ```
+- Microsoft.Microsoft3DViewer
+- Microsoft.BingSearch
+- Microsoft.WindowsCalculator
+- Microsoft.WindowsCamera
+- Clipchamp.Clipchamp
+- Microsoft.WindowsAlarms
+- Microsoft.Windows.DevHome
+- MicrosoftCorporationII.MicrosoftFamily
+- Microsoft.WindowsFeedbackHub
+- Microsoft.GetHelp
+- Microsoft.Getstarted
+- Microsoft.WindowsMaps
+- Microsoft.MixedReality.Portal
+- Microsoft.BingNews
+- Microsoft.WindowsNotepad
+- Microsoft.Office.OneNote
+- Microsoft.OutlookForWindows
+- Microsoft.MSPaint
+- Microsoft.People
+- Microsoft.PowerAutomateDesktop
+- MicrosoftCorporationII.QuickAssist
+- Microsoft.SkypeApp
+- Microsoft.ScreenSketch
+- Microsoft.MicrosoftSolitaireCollection
+- Microsoft.MicrosoftStickyNotes
+- MicrosoftTeams
+- MSTeams
+- Microsoft.Todos
+- Microsoft.WindowsSoundRecorder
+- Microsoft.BingWeather
+- Microsoft.Xbox.TCUI
+- Microsoft.XboxApp
+- Microsoft.XboxGameOverlay
+- Microsoft.XboxGamingOverlay
+- Microsoft.XboxIdentityProvider
+- Microsoft.XboxSpeechToTextOverlay
+- Microsoft.GamingApp
+- Microsoft.YourPhone
+- Microsoft.ZuneMusic
+- Microsoft.ZuneVideo
 
-2. **Admin User Password** (Lines 541 and 560)
-   - Replace:
-     ```xml
-     <Value>REPLACE_ME</Value>
-     ```
+## Capabilities Removed 🗑️
 
-3. **Standard User Account Name & Password** (Lines 546 and 549)
-   - Replace:
-     ```xml
-     <Name>REPLACE_ME</Name>
-     <Value>REPLACE_ME</Value>
-     ```
+- Browser.InternetExplorer
+- MathRecognizer
+- Microsoft.Windows.MSPaint
+- Microsoft.Windows.Notepad
+- Microsoft.Windows.PowerShell.ISE
+- App.Support.QuickAssist
+- Microsoft.Windows.SnippingTool
+- Media.WindowsMediaPlayer
+- Microsoft.Windows.WordPad
 
-### 3. **Run the Setup**
+## System Configuration ⚙️
 
-Once the unattend file is updated with your custom values, you can proceed with the Windows installation. The unattended setup will automatically configure the system as per the instructions in the file.
+- **AutoLogon Configuration**: Automatically logs in the specified user during the first logon.
+- **Power Configuration**: Sets the system power plan to **Ultimate Performance** mode.
+- **Service Configuration**: Disables unwanted services like Xbox-related services, Fax, Print Spooler, and more to improve overall system performance.
 
-Enjoy your streamlined Windows installation! 😎
+## How to Use 🔧
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Deffz-Finesse/Debloated-Windows-11-Install.git
+   ```
+
+2. Modify the following sensitive information in the `unattend.xml` file:
+   - **Password**: Replace the passwords on lines 541, 549, and 560 with your own passwords.
+   - **Username**: Update the username on line 546.
+   - **Computer Name**: Update the computer name on line 522.
+
+3. After modifying the file, use this configuration in your Windows setup for a customized installation experience.
+
+## License 📄
+
+This project is open-source and licensed under the MIT License. Feel free to modify and share!
+
+---
+
+Created with ❤️ by Deffz-Finesse.
