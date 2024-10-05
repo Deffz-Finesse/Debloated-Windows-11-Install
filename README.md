@@ -106,8 +106,8 @@ The unattended installation automates the process of setting up Windows with min
    - Open `unattend.xml` and replace the `REPLACE-ME` placeholders with the actual user information and computer name.
 
 3. **Create a Bootable USB Drive**:
-   - Use a tool like [Rufus](https://rufus.ie/) to create a bootable USB drive and Copy the autounattend.xml file to the root folder of the USB drive that contains the Windows Setup files and connect it to the computer
-
+   - Use a tool like [Rufus](https://rufus.ie/) to create a bootable USB drive and Copy the autounattend.xml file to the root folder of the USB drive that contains the Windows Setup files
+     
 4. **Install Windows**: 
    - Boot from the USB and the installation will proceed automatically with the provided configurations.
 
