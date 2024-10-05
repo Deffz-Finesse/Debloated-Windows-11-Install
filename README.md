@@ -1,101 +1,114 @@
 
-# Windows Unattended Installation Script 🚀
+# **Debloated Windows 11 Installation** 🚀
 
-This project provides an unattended installation configuration for Windows. It includes scripts that automate setup, bypass hardware checks, remove unwanted bloatware, and configure the system according to your needs.
+This project contains an unattended Windows 11 installation configuration that bypasses hardware checks, removes unnecessary bloatware, disables certain Windows services, and applies custom configurations for an optimized, streamlined experience.
 
-## Key Features
+The unattended installation automates the process of setting up Windows with minimal user intervention, while simultaneously removing a variety of built-in apps, optimizing system settings, and improving overall performance. Below is a detailed explanation of everything that the configuration does to the system.
 
-- **🚫 Bypass Hardware Checks**: Automatically bypass TPM, Secure Boot, and RAM checks during installation, allowing installation on older or unsupported systems.
+---
+
+## **Features Overview** 🛠️
+
+1. **Bypass Hardware Checks** ⚠️
+   - **TPM, Secure Boot, and RAM Checks:** Automatically bypasses TPM, Secure Boot, and minimum RAM checks, allowing installation on devices that don't meet the strict hardware requirements of Windows 11.
   
-- **🛡️ Disable Windows Defender**: Runs a custom script that disables Windows Defender, freeing up system resources and improving performance for certain tasks.
+2. **Disable Windows Defender** 🛡️
+   - **Runs a VBScript (`disable-defender.vbs`)** during installation that disables Windows Defender services such as:
+     - `WinDefend` (Windows Defender Antivirus)
+     - `WdBoot`, `WdFilter`, `WdNisDrv`, and `WdNisSvc` (related to Defender's boot and filter services).
 
-- **🧹 Remove Bloatware**: Automatically uninstalls a variety of pre-installed Microsoft apps and services that are often considered bloatware.
+3. **Remove Built-in Windows Apps (Debloat)** 🗑️
+   - **Removes several pre-installed Windows applications** that are commonly considered bloatware. These include:
+     - **Apps Removed (via `remove-packages.ps1`):**
+       - 3D Viewer, Bing Search, Calculator, Camera, Clipchamp, Alarms, Feedback Hub, Microsoft Family, Get Help, Notepad, Paint, Sticky Notes, Skype, Xbox, Your Phone, Zune Music, and others.
+     - **Capabilities Removed (via `remove-caps.ps1`):**
+       - Internet Explorer, Math Recognizer, WordPad, Notepad, PowerShell ISE, Windows Media Player, Snipping Tool, and Quick Assist.
+     - **Features Removed (via `remove-features.ps1`):**
+       - Remote Desktop Connection, Microsoft Recall, and Snipping Tool.
 
-- **👥 Custom User Accounts**: Automatically creates local user accounts with specified administrative and standard privileges.
+4. **Custom User Accounts** 👤
+   - **Automatically creates local user accounts**:
+     - `Admin` with administrative privileges.
+     - `REPLACE-ME` as a standard user.
+   - Passwords for these accounts are specified during setup (replace `REPLACE-ME` placeholders with actual passwords).
+   - **REPLACE-ME** placeholders in the unattended XML:
+     - For Admin and Standard User: Username and password.
+     - Computer name.
 
-- **🛠️ Custom First Logon Commands**: Runs scripts during the first logon to further configure the system, such as disabling unnecessary services, managing search indexing, and configuring power settings.
+5. **Auto Logon** 🔑
+   - **Automatically logs in the `Admin` account** upon first boot to streamline setup.
 
-## Bloatware Removed 🧽
+6. **First Logon Commands (Custom System Configurations)** 🖥️
+   Several customizations are applied automatically at the first logon to optimize performance and behavior:
+   
+   - **Disable Search Indexing:**
+     - Disables search indexing for all drives except `C:\Users` to improve performance.
+   - **Disable Prefetcher:**
+     - Disables the prefetcher to optimize memory usage.
+   - **Disable Unused Services:**
+     - Disables services like:
+       - `XboxGipSvc`, `XboxNetApiSvc` (related to Xbox features)
+       - `Fax`, and `Print Spooler`
+   - **Apply High-Performance Power Plan:**
+     - Applies the "Ultimate Performance" power plan for optimal system performance.
+   - **Install AMD Drivers (if applicable):**
+     - Installs drivers from the `C:\Drivers\AMD` directory if present.
 
-The following applications and capabilities are automatically removed during installation:
+7. **Windows Customizations** 🎨
+   The following customizations are applied to the Windows UI and system behavior:
+   
+   - **Move Taskbar to the Left:**
+     - Moves the taskbar alignment to the left, similar to the classic Windows layout.
+   - **Enable Classic Right-Click Context Menu:**
+     - Restores the classic context menu behavior in Windows 11.
+   - **Show Hidden Files and File Extensions:**
+     - Configures File Explorer to display hidden files and file extensions.
+   - **Disable "News and Interests" Widget:**
+     - Removes the "News and Interests" feature from the taskbar.
 
-- Microsoft.Microsoft3DViewer
-- Microsoft.BingSearch
-- Microsoft.WindowsCalculator
-- Microsoft.WindowsCamera
-- Clipchamp.Clipchamp
-- Microsoft.WindowsAlarms
-- Microsoft.Windows.DevHome
-- MicrosoftCorporationII.MicrosoftFamily
-- Microsoft.WindowsFeedbackHub
-- Microsoft.GetHelp
-- Microsoft.Getstarted
-- Microsoft.WindowsMaps
-- Microsoft.MixedReality.Portal
-- Microsoft.BingNews
-- Microsoft.WindowsNotepad
-- Microsoft.Office.OneNote
-- Microsoft.OutlookForWindows
-- Microsoft.MSPaint
-- Microsoft.People
-- Microsoft.PowerAutomateDesktop
-- MicrosoftCorporationII.QuickAssist
-- Microsoft.SkypeApp
-- Microsoft.ScreenSketch
-- Microsoft.MicrosoftSolitaireCollection
-- Microsoft.MicrosoftStickyNotes
-- MicrosoftTeams
-- MSTeams
-- Microsoft.Todos
-- Microsoft.WindowsSoundRecorder
-- Microsoft.BingWeather
-- Microsoft.Xbox.TCUI
-- Microsoft.XboxApp
-- Microsoft.XboxGameOverlay
-- Microsoft.XboxGamingOverlay
-- Microsoft.XboxIdentityProvider
-- Microsoft.XboxSpeechToTextOverlay
-- Microsoft.GamingApp
-- Microsoft.YourPhone
-- Microsoft.ZuneMusic
-- Microsoft.ZuneVideo
+8. **Windows Update Customizations** 🌀
+   - **Disable Automatic Restarts for Logged-On Users:** Prevents Windows from automatically restarting while users are logged on after updates.
+   - **Disables Unnecessary Features in Windows Update (e.g., DevHome Updates)**
 
-## Capabilities Removed 🗑️
+9. **Disable Windows Copilot and Other Features** 🤖
+   - **Removes Windows Copilot and related services:**
+     - Disables Windows Copilot by removing associated registry entries and services.
 
-- Browser.InternetExplorer
-- MathRecognizer
-- Microsoft.Windows.MSPaint
-- Microsoft.Windows.Notepad
-- Microsoft.Windows.PowerShell.ISE
-- App.Support.QuickAssist
-- Microsoft.Windows.SnippingTool
-- Media.WindowsMediaPlayer
-- Microsoft.Windows.WordPad
+10. **Virtual Machine Tools Installation** 🖥️💻
+    - **Detects and installs guest additions** for VirtualBox and VMware:
+      - **VirtualBox Guest Additions:**
+        - Installs Guest Additions automatically if detected.
+      - **VMware Tools:**
+        - Installs VMware Tools automatically if detected.
 
-## System Configuration ⚙️
+11. **Registry Tweaks and Additional Optimizations** 🛠️
+    - **Enable Long File Paths:** 
+      - Enables support for file paths longer than the default 260 characters.
+    - **Disable UAC (User Account Control)**
 
-- **AutoLogon Configuration**: Automatically logs in the specified user during the first logon.
-- **Power Configuration**: Sets the system power plan to **Ultimate Performance** mode.
-- **Service Configuration**: Disables unwanted services like Xbox-related services, Fax, Print Spooler, and more to improve overall system performance.
+---
 
-## How to Use 🔧
+### **Important Notes:**
 
-1. Clone the repository:
+- **REPLACE-ME placeholders:** Ensure you update the XML with the appropriate usernames, passwords, and computer names in the following sections:
+  - **User Accounts:** Replace the username and password (Admin and standard user).
+  - **Computer Name:** Replace the `REPLACE-ME` with your desired computer name.
+---
+
+## **How to Use** 🔧
+
+1. **Download the repository**: 
    ```bash
    git clone https://github.com/Deffz-Finesse/Debloated-Windows-11-Install.git
    ```
 
-2. Modify the following sensitive information in the `unattend.xml` file:
-   - **Password**: Replace the passwords on lines 541, 549, and 560 with your own passwords.
-   - **Username**: Update the username on line 546.
-   - **Computer Name**: Update the computer name on line 522.
+2. **Modify the unattended.xml file:**
+   - Open `unattend.xml` and replace the `REPLACE-ME` placeholders with the actual user information and computer name.
 
-3. After modifying the file, use this configuration in your Windows setup for a customized installation experience.
+3. **Create a Bootable USB Drive**:
+   - Use a tool like [Rufus](https://rufus.ie/) to create a bootable USB drive and copy the `unattend.xml` file to the `/sources/` directory on your USB drive.
 
-## License 📄
+4. **Install Windows**: 
+   - Boot from the USB and the installation will proceed automatically with the provided configurations.
 
-This project is open-source and licensed under the MIT License. Feel free to modify and share!
-
----
-
-Created with ❤️ by Deffz-Finesse.
+Enjoy your streamlined, debloated Windows 11 installation! 🎉
